@@ -1,0 +1,33 @@
+﻿@model BedeSlots.Web.Models.DepositViewModel
+@{
+    ViewData["Title"] = "Deposit";
+}
+
+<h2>Deposit</h2>
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <form asp-controller="Deposit" asp-action="Deposit" method="post">
+            <div class="well form-group">
+                <label asp-for="BankCards" class="control-label"></label>
+                <select asp-for="@Model.BankCardId" asp-items="@Model.BankCards" class="form-control"></select>
+                <span asp-validation-for="BankCardId" class="text-danger"></span>
+                <a class="btn btn-default" asp-controller="Card" asp-action="AddCard">Add card</a>
+            </div>
+            <div class="well form-group">
+                <label asp-for="DepositAmount" class="control-label"></label>
+                <input type="text" asp-for="@Model.DepositAmount" placeholder="Amount" class="form-control" />
+                <span asp-validation-for="DepositAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary form-control" type="submit">Deposit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+
+

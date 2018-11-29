@@ -1,0 +1,20 @@
+﻿@model CardInfoViewModel
+@{
+    ViewData["Title"] = "CardInfo";
+}
+
+<h2>CardDetails</h2>
+
+<div>
+    <label asp-for="Owner"></label>
+    <p>@Model.Owner.FirstName @Model.Owner.LastName</p>
+    <label asp-for="CardNumber"></label>
+    <p>@Model.CardNumber</p>
+    <label asp-for="Cvv"></label>
+    <p>@Model.Cvv</p>
+    <label asp-for="CardType"></label>
+    <p>@Model.CardType</p>
+    <label asp-for="Expiry"></label>
+    <p>@Model.Expiry</p>
+</div>
+

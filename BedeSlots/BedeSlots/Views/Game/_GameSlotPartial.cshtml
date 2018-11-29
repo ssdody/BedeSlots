@@ -1,0 +1,17 @@
+﻿@model GameSlotViewModel
+<section>
+    <table>
+        @for (int row = 0; row < @Model.Rows; row++)
+        {
+            <tr>
+                @for (int col = 0; col < @Model.Cols; col++)
+                {
+                    <td><img src="~/images/fruits/@(Model.Matrix[row,col] + ".png")" id="@(row.ToString() + col.ToString()) "></td>
+                }
+            </tr>
+        }
+    </table>
+
+    <div class="text text-success">Earning: @Model.Money</div>
+
+</section>
