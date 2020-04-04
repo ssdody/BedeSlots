@@ -1,8 +1,8 @@
-﻿using BedeSlots.Data.Models;
+﻿using BedeSlots.Data.Configurations;
+using BedeSlots.Data.Models;
 using BedeSlots.Data.Models.Contracts;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Linq;
 using System.Threading;
@@ -22,34 +22,8 @@ namespace BedeSlots.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.ApplyConfiguration(new UserConfiguration());
-                        
-            modelBuilder
-               .Entity<BankCard>()
-               .HasOne(c => c.User)
-               .WithMany(u => u.Cards)
-               .HasForeignKey(u => u.UserId)
-              .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder
-              .Entity<Transaction>()
-              .HasOne(t => t.User)
-              .WithMany(u => u.Transactions)
-              .HasForeignKey(u => u.UserId);
-
-            var transactionTypeConverter = new EnumToStringConverter<TransactionType>();
-
-            modelBuilder
-                .Entity<Transaction>()
-                .Property(t => t.Type)
-                .HasConversion(transactionTypeConverter);
-
-            var gameTypeConverter = new EnumToStringConverter<GameType>();
-
-            modelBuilder
-                .Entity<Transaction>()
-                .Property(t => t.GameType)
-                .HasConversion(gameTypeConverter);
+            modelBuilder.ApplyConfiguration(new BankCardConfiguration());
+            modelBuilder.ApplyConfiguration(new TransactionConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

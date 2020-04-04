@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BedeSlots.Web", "BedeSlots\BedeSlots.Web.csproj", "{F3FD4DC2-3461-4F7D-9589-427911948B1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BedeSlots.Web", "BedeSlots.Web\BedeSlots.Web.csproj", "{F3FD4DC2-3461-4F7D-9589-427911948B1C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BedeSlots.Data", "BedeSlots.Data\BedeSlots.Data.csproj", "{B0E962E9-B9FD-4C6F-86D1-8B29EECD5371}"
 EndProject
@@ -13,7 +13,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BedeSlots.Services.Data", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BedeSlots.Services.External", "BedeSlots.Services.External\BedeSlots.Services.External.csproj", "{7E61B5A3-3A1E-46DF-9FC5-58A1AA20B138}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BedeSlots.Games", "BedeSlots.Games\BedeSlots.Games.csproj", "{71978C6B-0AB2-44F4-953E-E6802B1772F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BedeSlots.Games", "BedeSlots.Games\BedeSlots.Games.csproj", "{71978C6B-0AB2-44F4-953E-E6802B1772F4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BedeSlots.Common", "BedeSlots.Common\BedeSlots.Common.csproj", "{4E69E4A4-F69E-465A-B4DC-CDFF2FAEE339}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BedeSlots.DTO", "BedeSlots.DTO\BedeSlots.DTO.csproj", "{DE83E7B0-F486-42A4-B157-26E44E8241CB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BedeSlots.Services.Tests", "BedeSlots.Services.Tests\BedeSlots.Services.Tests.csproj", "{1B9DD9C7-799F-404D-8952-042A71FAAEA0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BedeSlots.Web.Tests", "BedeSlots.Web.Tests\BedeSlots.Web.Tests.csproj", "{C346282C-C3F5-4268-BCBE-6A27D7C2203E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BedeSlots.Games.Tests", "BedeSlots.Games.Tests\BedeSlots.Games.Tests.csproj", "{D50C5DBB-0DF0-4CB9-9203-FB0F0905381B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +55,26 @@ Global
 		{71978C6B-0AB2-44F4-953E-E6802B1772F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71978C6B-0AB2-44F4-953E-E6802B1772F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71978C6B-0AB2-44F4-953E-E6802B1772F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E69E4A4-F69E-465A-B4DC-CDFF2FAEE339}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E69E4A4-F69E-465A-B4DC-CDFF2FAEE339}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E69E4A4-F69E-465A-B4DC-CDFF2FAEE339}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E69E4A4-F69E-465A-B4DC-CDFF2FAEE339}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE83E7B0-F486-42A4-B157-26E44E8241CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE83E7B0-F486-42A4-B157-26E44E8241CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE83E7B0-F486-42A4-B157-26E44E8241CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE83E7B0-F486-42A4-B157-26E44E8241CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B9DD9C7-799F-404D-8952-042A71FAAEA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B9DD9C7-799F-404D-8952-042A71FAAEA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B9DD9C7-799F-404D-8952-042A71FAAEA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B9DD9C7-799F-404D-8952-042A71FAAEA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C346282C-C3F5-4268-BCBE-6A27D7C2203E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C346282C-C3F5-4268-BCBE-6A27D7C2203E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C346282C-C3F5-4268-BCBE-6A27D7C2203E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C346282C-C3F5-4268-BCBE-6A27D7C2203E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D50C5DBB-0DF0-4CB9-9203-FB0F0905381B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D50C5DBB-0DF0-4CB9-9203-FB0F0905381B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D50C5DBB-0DF0-4CB9-9203-FB0F0905381B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D50C5DBB-0DF0-4CB9-9203-FB0F0905381B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

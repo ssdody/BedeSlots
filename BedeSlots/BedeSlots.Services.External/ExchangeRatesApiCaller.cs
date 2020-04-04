@@ -7,14 +7,14 @@ namespace BedeSlots.Services.External
 {
     public class ExchangeRatesApiCaller : IExchangeRatesApiCaller
     {
-        public async Task<string> GetCurrenciesRatesAsync()
+        public async Task<string> GetCurrenciesRatesAsync(string baseAddress, string parameters)
         {
             using (var client = new HttpClient())
             {
                 try
                 {
-                    client.BaseAddress = new Uri(ServicesConstants.ApiBaseAddress);
-                    var response = await client.GetAsync(ServicesConstants.ApiParameters);
+                    client.BaseAddress = new Uri(baseAddress);
+                    var response = await client.GetAsync(parameters);
                     response.EnsureSuccessStatusCode();
 
                     var stringResult = await response.Content.ReadAsStringAsync();
@@ -22,7 +22,7 @@ namespace BedeSlots.Services.External
                 }
                 catch (HttpRequestException httpRequestException)
                 {
-                    return httpRequestException.Message;
+                    return $"The api is not available" + httpRequestException.Message;
                 }
             }
         }

@@ -4,6 +4,6 @@ namespace BedeSlots.Services.External.Contracts
 {
     public interface IExchangeRatesApiCaller
     {
-        Task<string> GetCurrenciesRatesAsync();
+        Task<string> GetCurrenciesRatesAsync(string baseAddress, string parameters);
     }
 }

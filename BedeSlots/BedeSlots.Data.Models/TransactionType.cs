@@ -4,6 +4,7 @@
     {
         Deposit = 1,
         Stake = 2,
-        Win = 3
+        Win = 3,
+        Withdraw = 4
     }
 }

@@ -1,9 +1,11 @@
 ﻿using BedeSlots.Data;
 using BedeSlots.Data.Models;
+using BedeSlots.DTO.TransactionDto;
 using BedeSlots.Services.Data.Contracts;
+using BedeSlots.Services.Data.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BedeSlots.Services.Data
@@ -11,55 +13,73 @@ namespace BedeSlots.Services.Data
     public class TransactionService : ITransactionService
     {
         private readonly BedeSlotsDbContext context;
+        private readonly ICurrencyConverterService currencyConverterService;
 
-        public TransactionService(BedeSlotsDbContext context)
+        public TransactionService(BedeSlotsDbContext context, ICurrencyConverterService currencyConverterService)
         {
-            this.context = context ?? throw new ArgumentNullException(nameof(context));
+            this.context = context ?? throw new ServiceException(nameof(context));
+            this.currencyConverterService = currencyConverterService ?? throw new ServiceException(nameof(currencyConverterService));
         }
 
-        public async Task<Transaction> RegisterTransactionsAsync(Transaction transaction)
+        public IQueryable<TransactionManageDto> GetAllTransactions()
         {
+            var transactions = this.context.Transactions
+                .Select(t => new TransactionManageDto
+                {
+                    Date = t.Date,
+                    Amount = t.Amount,
+                    Description = t.Description,
+                    Type = t.Type,
+                    User = t.User.Email
+                })
+                .AsQueryable();
+
+            return transactions;
+        }
+
+        public async Task<Transaction> AddTransactionAsync(TransactionType type, string userId, string description, decimal amount, Currency currency)
+        {
+            if (userId == null)
+            {
+                throw new ServiceException("UserId can not be null!");
+            }
+
+            if (amount < 0)
+            {
+                throw new ServiceException("Amount must be positive number!");
+            }
+
+            var convertedAmount = await this.currencyConverterService.ConvertToBaseCurrencyAsync(amount, currency);
+
+            var transaction = new Transaction()
+            {
+                Amount = convertedAmount,
+                Date = DateTime.Now,
+                Type = type,
+                UserId = userId,
+                Description = description
+            };
+
             await this.context.Transactions.AddAsync(transaction);
-
-            var user = await this.context.Users.FirstOrDefaultAsync(u => u.Id == transaction.UserId);
-            user.Transactions.Add(transaction);
-
             await this.context.SaveChangesAsync();
 
             return transaction;
         }
 
-        public async Task<ICollection<Transaction>> GetAllTransactionsAsync()
+        public IQueryable<TransactionHistoryDto> GetUserTransactionsAsync(string userId)
         {
-            var transactions = await this.context.Transactions
-                .Include(t => t.User)
-                .ToListAsync();
+            var transactions = this.context.Transactions
+               .Where(t => t.UserId == userId)
+               .Select(t => new TransactionHistoryDto
+               {
+                   Date = t.Date,
+                   Amount = t.Amount,
+                   Description = t.Description,
+                   Type = t.Type
+               })
+               .AsQueryable();
 
             return transactions;
-        }
-
-        public async Task<Transaction> GetTransactionByIdAsync(int id)
-        {
-            var transaction = await this.context.Transactions
-                .Include(t => t.User)
-                .ThenInclude(u => u.Cards)
-                .SingleOrDefaultAsync(t => t.Id == id);
-
-            return transaction;
-        }
-
-        public Transaction CreateTransaction(TransactionType type, string userId, int cardId, decimal depositAmount)
-        {
-            var transaction = new Transaction()
-            {
-                Amount = depositAmount,
-                Date = DateTime.Now,
-                Type = type,
-                CardId = cardId,
-                UserId = userId,
-            };
-
-            return transaction;
         }
     }
 }

@@ -2,8 +2,8 @@
 {
     public enum GameType
     {
-        FourToThree = 1,
-        FiveToFive = 2,
-        EightToFive = 3
+        _4x3 = 1,
+        _5x5 = 2,
+        _8x5 = 3,
     }
 }

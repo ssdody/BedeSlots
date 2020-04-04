@@ -19,10 +19,8 @@ namespace BedeSlots.Data.Models
         [Range(1, double.MaxValue)]
         public decimal Amount { get; set; }
 
-        //TODO: should it be like this - one entity for deposit and win/stake
-        public int? CardId { get; set; }
-
-        public GameType GameType { get; set; }
+        [Required]
+        public string Description { get; set; }
 
         public string UserId { get; set; }
 

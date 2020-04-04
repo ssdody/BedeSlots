@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using BedeSlots.Data.Models.Contracts;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BedeSlots.Data.Models
 {
-    public class User : IdentityUser
+    public class User : IdentityUser, IAuditable, IDeletable
     {
         [Required]
         [MinLength(DataModelsConstants.UserNameMinLength)]
@@ -29,5 +30,16 @@ namespace BedeSlots.Data.Models
         public ICollection<BankCard> Cards { get; set; }
 
         public ICollection<Transaction> Transactions { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        [DataType(DataType.DateTime)]
+        public DateTime? DeletedOn { get; set; }
+
+        [DataType(DataType.DateTime)]
+        public DateTime? CreatedOn { get; set; }
+
+        [DataType(DataType.DateTime)]
+        public DateTime? ModifiedOn { get; set; }
     }
 }
