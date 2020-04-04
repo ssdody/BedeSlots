@@ -1,0 +1,22 @@
+﻿@model EditRoleViewModel
+
+@{
+    ViewData["Title"] = "_EditRolePartial";
+}
+
+<h2>Change the role of @Model.UserName </h2>
+
+<div>
+    <form id="editRole">
+        <input asp-for="UserId" id="userId" type="text" hidden />
+        @Html.DropDownListFor(model => model.RoleId, Model.Roles, new { @class = "form-control" })
+        @Html.AntiForgeryToken()
+    </form>
+    <br />
+
+    <div class="text-center">
+        <button id="btnSubmit" type="submit" class="btn btn-success">Edit</button>
+        <button id="btnReject" type="button" class="btn btn-default">Cancel</button>
+    </div>
+</div>
+

@@ -1,0 +1,32 @@
+.bgimg-1 {
+    background-position: center;
+    background-size: cover;
+    background-image: url("/images/home.jpg");
+    min-height: 100%;
+    z-index: 0;
+    background-attachment: fixed;
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+}
+
+.index-info{
+    padding:30px;
+    text-align-last:left;
+}
+
+@media (max-width: 880px) {
+    #slogan {
+        display:none;
+    }
+}
+
+#slogan {
+   white-space:nowrap;
+}
+
+#game-button {
+    padding:48px;
+}

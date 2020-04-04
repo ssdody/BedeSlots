@@ -1,0 +1,96 @@
+﻿@model WithdrawViewModel
+@{
+    ViewData["Title"] = "Withdraw";
+}
+
+<div id="status-msg">
+    <partial name="_StatusMessage" model="@Model.StatusMessage" />
+</div>
+
+<div class="container">
+    <h2 class="text-center">Withdraw</h2>
+    <div class="row" id="withdraw-info">
+        <div class="col-md-4 col-md-offset-4">
+            <form id="retrieve-form" asp-controller="Withdraw" asp-action="Withdraw" method="post">
+                <div class="well form-group text-center">
+                    <div id="select-card-dropdown">
+                        @await Component.InvokeAsync("SelectCard")
+                    </div>
+                    <button type="button" id="details-btn" class="btn btn-primary" data-toggle="modal" data-target="#card-details">Card Details</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddCardModal">Add New Card</button>
+                </div>
+                <div class="well form-group text-center">
+                    <label asp-for="@Model.Amount" class="control-label"></label>
+                    <div>
+                        <input type="text" id="withdraw-amount" asp-for="@Model.Amount" placeholder="Amount" />
+                        <span class="text-info">@WebConstants.CurrencySymbols[Model.Currency]</span>
+                    </div>
+                    <span asp-validation-for="@Model.Amount" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary form-control" type="submit">Withdraw</button>
+                </div>
+            </form>
+        </div>
+
+        @*modal add card*@
+        <div class="modal fade" id="AddCardModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-md" role="document" id="modal-add-card">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <h2 class="modal-title text-center" id="AddCardModalLabel">Add card</h2>
+                    </div>
+                    <div class="modal-body">
+                        @await Component.InvokeAsync("AddCard");
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default form-control" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*modalend*@
+
+        @*modal card details*@
+        <div class="modal fade" id="card-details" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-sm" role="document" id="modal-details-card">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <h2 class="modal-title text-center" id="card-details-modal">Card Details</h2>
+                    </div>
+                    <div class="modal-body" id="details-result">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default form-control" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*modalend*@
+    </div>
+</div>
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/js/withdraw.js"></script>
+    <script src="~/js/Card/cardDetails.js"></script>
+    <script src="~/js/Card/cardWrapper.js"></script>
+    <script src="~/js/Card/addCard.js"></script>
+    <script src="~/lib/jquery/dist/jquery.card.js"></script>
+
+    <script>
+        let MyAppUrlSettings = {
+            CardDetailsUrl: '@Url.Action("Details","Card")',
+            UserBalanceComponent: '@Url.Action("BalanceViewComponent", "UserBalance")'
+        }
+    </script>
+}

@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+<div class="container">
+    <h2 class="text-center">So many ways to play! We Bet you will love it! </h2>
+    <link href="~/css/game.css" rel="stylesheet" />
+    <div id="games-images" class="row">
+        <form asp-controller="Game" asp-action="SlotMachine" method="get">
+            <div class="hover01 column row">
+                <div class="col-md-4">
+                    <figure>
+                        <button type="submit" name="size" value="4x3">
+                            <img class="game-poster img-responsive" src="~/images/fruistgowild.jpg" alt="Resposive Image" />
+                        </button>
+                    </figure>
+                </div>
+                <div class="col-md-4">
+                    <figure>
+                        <button type="submit" name="size" value="5x5">
+                            <img class="game-poster" src="~/images/diamondwild.jpg" alt="Resposive Image" />
+                        </button>
+                    </figure>
+                </div>
+                <div class="col-md-4">
+                    <figure>
+                        <button type="submit" name="size" value="8x5">
+                            <img class="game-poster" src="~/images/classic7.jpg" alt="Resposive Image" />
+                        </button>
+                    </figure>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

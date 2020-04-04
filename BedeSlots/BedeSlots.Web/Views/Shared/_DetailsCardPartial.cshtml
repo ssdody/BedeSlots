@@ -1,0 +1,30 @@
+﻿@model CardInfoViewModel
+
+@{
+    ViewData["Title"] = "_DetailsCardPartial";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <label asp-for="Cardholder"></label>
+        <p id="name">@Model.Cardholder</p>
+
+        <label asp-for="Expiry"></label>
+        <p id="expiry">@Model.Expiry.ToString("MM-yyyy")</p>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="CardNumber"></label>
+        <p id="number">**** **** **** @Model.CardNumber</p>
+
+        <label asp-for="CardType"></label>
+        <p>@Model.CardType</p>
+    </div>
+
+    <form id="delete-card-form" asp-controller="Card" asp-action="Delete" asp-route-id="@Model.Id"  method="post" asp-route-confirm="true" class="text-center" onclick="return confirm('Do you really want to delete this card?')">
+        <div class="form-group">
+            <button class="btn btn-danger text-center" type="submit">Delete</button>
+        </div>
+    </form>
+</div>
+
+

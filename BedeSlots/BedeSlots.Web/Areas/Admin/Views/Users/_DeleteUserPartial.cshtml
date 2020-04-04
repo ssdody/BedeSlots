@@ -1,0 +1,19 @@
+﻿@model DeleteUserViewModel
+
+@{
+    ViewData["Title"] = "_DeleteUserPartial";
+}
+
+<h2>Are you sure you want to delete @Model.UserName?</h2>
+
+<div>
+    <form id="deleteUser">
+        @Html.AntiForgeryToken()
+        <input asp-for="Id" type="text" hidden />
+    </form>
+
+    <div class="text-center">
+        <button id="deleteBtnSubmit" type="submit" class="btn btn-danger">Yes, delete it</button>
+        <button id="deleteBtnReject" type="button" class="btn btn-default">Cancel</button>
+    </div>
+</div>

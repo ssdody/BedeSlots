@@ -1,0 +1,28 @@
+﻿ @model UserBalanceViewModel
+
+@{
+    ViewData["Title"] = "Default";
+}
+
+<ul class="nav navbar-nav navbar-right navbar-default ">
+    <li class="dropdown" id="balance-dropdown">
+        <a class="dropdown-toggle glyphicon glyphicon-retweet" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            @if (Model.Currency != Currency.BGN)
+            {
+                <strong>
+                    Balance: @WebConstants.CurrencySymbols[Model.Currency]@Model.Balance
+                </strong>
+            }
+            else
+            {
+                <strong>
+                    Balance: @Model.Balance@WebConstants.CurrencySymbols[Model.Currency]
+                </strong>
+            }<span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="balance-dropdown">
+            <li><a  asp-area="" asp-controller="Withdraw" asp-action="Index" class="glyphicon glyphicon-usd"> Withdraw</a></li>
+            <li><a  asp-area="" asp-controller="History" asp-action="Index" class="glyphicon glyphicon-equalizer"> History</a></li>
+        </ul>
+    </li>
+</ul>

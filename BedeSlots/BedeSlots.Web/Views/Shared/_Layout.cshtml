@@ -1,0 +1,140 @@
+﻿@inject SignInManager<User> SignInManager
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BedeSlots</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    </environment>
+    <link href="~/css/footer.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">Menu</button>
+                <a asp-area="" asp-controller="Home" asp-action="Index" id="nav-logo" class="navbar-left"><img src="~/images/logo.png"></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index" class="glyphicon glyphicon-home"> Home</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact" class="glyphicon glyphicon-bell"> Contact</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li> <a asp-area="" asp-controller="Deposit" asp-action="Index" class="glyphicon glyphicon-piggy-bank"> Deposit</a></li>
+                        <li class="active"><a asp-area="" asp-controller="Game" asp-action="Index" class="glyphicon glyphicon-asterisk"> Games</a></li>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @if (User.IsInRole(WebConstants.MasterAdminRole) || User.IsInRole(WebConstants.AdminRole))
+                        {
+                            <li>
+                                <a class="dropdown-toggle glyphicon glyphicon-align-justify" role="button" data-toggle="dropdown" id="admin-panel"> Admin<span class="caret"></span></a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a asp-area="Admin" asp-controller="Transactions" asp-action="Index" class="glyphicon glyphicon-list"> Transactions</a></li>
+                                    <li><a asp-area="Admin" asp-controller="Users" asp-action="Index" class="glyphicon glyphicon-user"> Users</a></li>
+                                </ul>
+                            </li>
+                        }
+                    }
+                </ul>
+
+                @await Html.PartialAsync("_LoginPartial")
+
+                <div id="component-balance">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @await Component.InvokeAsync("UserBalance");
+                    }
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="body-content">
+        @RenderBody()
+
+            <button class=" btn open-button" onclick="openForm()">Chat</button>
+            <div class="chat-popup" id="myForm">
+                <form class="form-chat">
+                    <div>
+                        <iframe id="bot-iframe" height="400" width="280" src='https://webchat.botframework.com/embed/BedeSlotsBot?s=9auPtlIpveo.cwA.dgY.K2U1OVCynAWVcHZLw16J5sTfxRi1dbdQ5SHOCmIq7Bc'></iframe>
+                    </div>
+                    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                </form>
+            </div>        
+    </div>
+
+    <footer class="footer-distributed">
+        <div class="footer-left">
+            <div id="label-corner" class="corner-ribbon">
+                <span class="neon">Bede</span> <span class="flux">Slots</span>
+            </div>
+
+            <p class="footer-links" id="footer-links">
+                <a href="/home/index">Home</a>
+                ·
+                <a href="/home/contact">Contact</a>
+                ·
+                <a href="/game">Games</a>
+            </p>
+        </div>
+
+        <div class="footer-center">
+            <div>
+                <p><span>Alexander Malinov 31</span> Sofia, Bulgaria</p>
+            </div>
+
+            <div>
+                <p>+359 899 999 999</p>
+            </div>
+
+            <div>
+                <p><a href="" mailto:bedeslots777@bedeslots.com"">bedeslots777@bedeslots.com</a></p>
+            </div>
+        </div>
+
+        <div class="footer-right" id="footer-copyrights">
+            <p class="footer-company-name">Bede Slots &copy; 2018</p>
+            <p class="footer-company-name">All rights reserved. </p>
+            <p class="footer-company-name">Powered by Telerik Academy.</p>
+        </div>
+    </footer>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    <script src="~/js/chatBot.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

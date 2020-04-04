@@ -1,0 +1,44 @@
+﻿@model BedeSlots.Web.Models.AddCardViewModel
+
+@{
+    ViewData["Title"] = "Default";
+}
+
+<div class="row demo-container">
+    <div class="card-wrapper col-md-6"></div>
+
+    <div class="form-container active col-md-6">
+        <form id="addCardForm" asp-controller="Card" asp-action="AddCard" method="post">
+            <div class="form-group">
+                <label asp-for="CardNumber" class="control-label"></label>
+                <input asp-for="CardNumber" id="number" type="text" name="CardNumber" placeholder="Card Number" class="form-control" />
+                <span asp-validation-for="CardNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CardholderName" class="control-label"></label>
+                <input asp-for="CardholderName" id="name" type="text" name="CardholderName" placeholder="Cardholder Name" class="form-control" />
+                <span asp-validation-for="CardholderName" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6 smallInput">
+                    <label asp-for="Expiry" class="control-label"></label>
+                    <input asp-for="Expiry" id="expiry" type="text" name="Expiry" placeholder="MM/YYYY" value="" required minlength ="9" class="form-control" />
+                    <span asp-validation-for="Expiry" class="text-danger"></span>
+                </div>
+                <div class="form-group col-sm-6 smallInput">
+                    <label asp-for="Cvv" class="control-label"></label>
+                    <input asp-for="Cvv" id="cvv" type="text" name="Cvv" placeholder="CVV" class="form-control" />
+                    <span asp-validation-for="Cvv" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="CardType" class="control-label"></label>
+                <select asp-for="CardType" asp-items="Html.GetEnumSelectList<CardType>()" class="form-control"></select>
+                <span asp-validation-for="CardType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary form-control">Add</button>
+            </div>
+        </form>
+    </div>
+</div>
